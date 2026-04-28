@@ -1,0 +1,144 @@
+{
+  "accuracy": 1.0,
+  "f1_weighted": 1.0,
+  "confusion_matrix": [
+    [
+      23709,
+      0,
+      0
+    ],
+    [
+      0,
+      23710,
+      0
+    ],
+    [
+      0,
+      0,
+      23710
+    ]
+  ],
+  "report": {
+    "High": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 23709.0
+    },
+    "Low": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 23710.0
+    },
+    "Medium": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 23710.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 71129.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 71129.0
+    }
+  },
+  "feature_importances": [
+    [
+      "Stress_Level",
+      0.9885393208647685
+    ],
+    [
+      "Heart_Rate",
+      0.0010676836570259812
+    ],
+    [
+      "Respiration_Rate",
+      0.001009909956731236
+    ],
+    [
+      "Screen_Time_Hours",
+      0.0009846448781405674
+    ],
+    [
+      "Sleep_Duration_Hours",
+      0.0009743046820560558
+    ],
+    [
+      "Active_Hours_Per_Day",
+      0.0009702927502311972
+    ],
+    [
+      "Caffeine_Intake_mg",
+      0.0009483284157724729
+    ],
+    [
+      "Water_Intake_Liters",
+      0.0009285307477143721
+    ],
+    [
+      "Blood_Pressure_Systolic",
+      0.0006587360554925723
+    ],
+    [
+      "Blood_Pressure_Diastolic",
+      0.0005982306531101926
+    ],
+    [
+      "Deadline_Facing_Per_Month",
+      0.00046929321963926665
+    ],
+    [
+      "Mood_Rating",
+      0.00041136959652390186
+    ],
+    [
+      "Social_Interaction_Score",
+      0.0004023566705178067
+    ],
+    [
+      "Age",
+      0.0003951784784312378
+    ],
+    [
+      "Productivity_Score",
+      0.00038994428216689297
+    ],
+    [
+      "Physical_Activity_Sessions_Per_Week",
+      0.0003337422550913675
+    ],
+    [
+      "Due_To_Stress",
+      0.0002713627856201234
+    ],
+    [
+      "Any_Disease",
+      0.0002517496336775803
+    ],
+    [
+      "Age_Group",
+      0.00010981375865159883
+    ],
+    [
+      "Hydration_Category",
+      0.00010453164548739348
+    ],
+    [
+      "Mental_Health_History",
+      9.886179861406529e-05
+    ],
+    [
+      "Gender",
+      8.181321453560288e-05
+    ]
+  ]
+}
