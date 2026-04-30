@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Brain, Send, RefreshCw, Sparkles, User } from 'lucide-react'
+import { chat } from '../utils/api'
 
 const SYSTEM_PROMPT = `You are VitalIQ's AI Wellness Coach — an empathetic, knowledgeable health advisor specializing in stress management, lifestyle optimization, and preventive health. 
 
@@ -37,6 +38,7 @@ export default function WellnessCoach() {
   ])
   const [input,   setInput]   = useState('')
   const [loading, setLoading] = useState(false)
+  const [lastModel, setLastModel] = useState(null)
   const bottomRef = useRef(null)
 
   useEffect(() => {
@@ -47,53 +49,28 @@ export default function WellnessCoach() {
     const userText = text || input.trim()
     if (!userText || loading) return
 
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY
-    if (!apiKey) {
-      setMessages(m => [...m, {
-        role: 'assistant',
-        content: '⚠️ API key is not configured. Please set VITE_GEMINI_API_KEY in your .env.local file. Get your API key at https://aistudio.google.com/app/apikey'
-      }])
-      return
-    }
-
     setInput('')
     const newMessages = [...messages, { role: 'user', content: userText }]
     setMessages(newMessages)
     setLoading(true)
 
     try {
-      const apiMessages = newMessages.map(m => ({
-        role: m.role === 'assistant' ? 'model' : 'user',
-        parts: [{ text: m.content }],
-      }))
-
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          systemInstruction: {
-            parts: [{ text: SYSTEM_PROMPT }],
-          },
-          contents: apiMessages,
-          generationConfig: {
-            maxOutputTokens: 1000,
-            temperature: 0.7,
-          },
-        }),
+      const data = await chat({
+        system: SYSTEM_PROMPT,
+        messages: newMessages.map(m => ({ role: m.role, content: m.content })),
+        max_tokens: 1000,
+        temperature: 0.7,
+        model: 'mistralai/Mistral-7B-Instruct-v0.2:featherless-ai',
       })
 
-      const data = await response.json()
-
-      if (!response.ok) throw new Error(data.error?.message || 'Gemini API request failed')
-
-      const reply = data.candidates?.[0]?.content?.parts?.map(part => part.text).join('') || 'Sorry, I could not generate a response.'
+      if (data?.model) setLastModel(data.model)
+      const reply = data?.content || 'Sorry, I could not generate a response.'
       setMessages(m => [...m, { role: 'assistant', content: reply }])
     } catch (e) {
+      const backendDetail = e?.response?.data?.detail
       setMessages(m => [...m, {
         role: 'assistant',
-        content: `⚠️ Sorry, I couldn't connect right now. Please ensure the API is available.\n\nError: ${e.message}`
+        content: `⚠️ Sorry, I couldn't connect right now. Please ensure the backend is running and HF_API_KEY is set.\n\n${backendDetail ? `Backend: ${backendDetail}\n\n` : ''}Error: ${e.message}`
       }])
     } finally {
       setLoading(false)
@@ -124,7 +101,9 @@ export default function WellnessCoach() {
           </div>
           <div>
             <h1 className="font-display text-3xl font-800 gradient-text">AI Wellness Coach</h1>
-            <p className="text-muted text-sm">Powered by Gemini · Health guidance & personalized wellness advice</p>
+            <p className="text-muted text-sm">
+              Powered by Mistral · Health guidance & personalized wellness advice{lastModel ? ` · Model: ${lastModel}` : ''}
+            </p>
           </div>
         </div>
         <button

@@ -33,7 +33,7 @@ const FEATURES = [
     to: '/wellness-coach',
     icon: <Brain size={28} />,
     title: 'AI Coach',
-    description: 'Chat with an AI wellness coach powered by Gemini for personalized health guidance and risk explanations.',
+    description: 'Chat with an AI wellness coach powered by Mistral for personalized health guidance and risk explanations.',
     color: '#F59E0B',
     glow: 'hover:glow-warn',
   },

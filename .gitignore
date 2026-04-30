@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Local env files (do not commit secrets)
+.env
+.env.*
+backend/.env
+
+# Allow example env templates to be committed
+!.env.example
+!backend/.env.example
+
+# Node
+node_modules/
+dist/
