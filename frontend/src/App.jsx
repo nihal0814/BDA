@@ -16,7 +16,7 @@ export default function App() {
           <Route path="/risk"           element={<GetRisk />} />
           <Route path="/recommendations" element={<Recommendations />} />
           <Route path="/dashboard"      element={<Dashboard />} />
-          <Route path="/wellness-coach" element={<WellnessCoach />} />
+          {/* <Route path="/wellness-coach" element={<WellnessCoach />} /> */}
           <Route path="*"               element={<Navigate to="/" />} />
         </Routes>
       </main>
